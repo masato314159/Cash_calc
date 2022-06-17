@@ -1,0 +1,16 @@
+{%- extends "base.html" %}
+{%- block content %}
+{%- include "slot_form.html" %}
+{% if slot_all == slot_sum %}
+<p>slot sum ok</p>
+{%- include "pachi_form.html" %}
+{% else %}
+<p>sum error plz check again</p>
+{% endif %}
+
+
+
+{%- endblock %}
+
+
+
