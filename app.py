@@ -26,27 +26,39 @@ def index():
   return render_template ("index.html")
 
         
-@app.route("/slot_calc",methods=["POST"])       
+@app.route("/slot_calc",methods=["POST"])
 def calc():
+  # def check():
+  #   slot_safeNums = ["sa", "sb"]
+  #   bill_types = ["_1k","_10k","_5k" ]
+  #   for slot_safeNum in slot_safeNums:
+  #     for bill_type in bill_types:
+  #       if request.form[slot_safeNum + bill_type] == None:
+  #         return render_template ("index.html", a = "数値を全ての欄に入力してください。")
+          
+        
+    
   slot_safeNums = ["sa", "sb"]
-
+  bill_types = ["_1k","_10k","_5k" ]
+  
   for slot_safeNum in slot_safeNums:
     bill_1k = int(request.form[slot_safeNum + "_1k"])
     bill_10k = int(request.form[slot_safeNum + "_10k"])
     bill_5k  = int(request.form[slot_safeNum + "_5k"])
     globals()[slot_safeNum] = Billcount(bill_1k, bill_10k, bill_5k)
+    session[slot_safeNum + "_1k"] = bill_1k
+    session[slot_safeNum + "_10k"] = bill_10k
+    session[slot_safeNum + "_5k"] = bill_5k
     
   slot_all = int(request.form["slot_all"])
+  session["slot_all"] = slot_all
+  
   slot_sum = 0
   
   slot_sumNums = [sa.sum, sb.sum]
   for slot_sumNum in slot_sumNums:
     slot_sum += slot_sumNum
-  
-  # session.permanent = True
-  # session["slot_sum"] = slot_sum
-  # session[]
-  return render_template ("slot_calc.html",slot_all = slot_all, slot_sum = slot_sum) 
+  return render_template ("slot_calc.html",slot_all = slot_all, slot_sum = slot_sum, form_data = session) 
 
 @app.route("/pachi_calc",methods=["POST"])   
 def pachi_calc():
@@ -56,7 +68,11 @@ def pachi_calc():
     bill_10k = int(request.form[pachi_safeNum + "_10k"])
     bill_5k = int(request.form[pachi_safeNum + "_5k"])
     globals()[pachi_safeNum] = Billcount(bill_1k, bill_10k, bill_5k)
+    session[pachi_safeNum + "_1k"] = bill_1k
+    session[pachi_safeNum + "_10k"] = bill_10k
+    session[pachi_safeNum + "_5k"] = bill_5k
   pachi_all = int(request.form["pachi_all"])
+  session["pachi_all"] = pachi_all
   
   pachi_sum = 0
   pachi_sumNums = [p1.sum, p2.sum, p3.sum, p4.sum, p5.sum,
@@ -66,7 +82,7 @@ def pachi_calc():
     pachi_sum += pachi_sumNum
   print(pachi_sum)
   
-  return render_template ("pachi_calc.html", pachi_sum = pachi_sum ,pachi_all = pachi_all) 
+  return render_template ("pachi_calc.html", pachi_sum = pachi_sum ,pachi_all = pachi_all ,form_data = session) 
 
 
 @app.route("/seisan_calc",methods=["POST"])
@@ -76,7 +92,11 @@ def seisan_calc():
   seisan_100 = int(request.form["seisan_100"])
   seisan_sum = seisan_1k * 1000 + seisan_500 * 500 + seisan_100 * 100
   seisan_all = int(request.form["seisan_all"])
-  return render_template ("seisan_calc.html", seisan_sum = seisan_sum, seisan_all = seisan_all)
+  session["seisan_1k"] = seisan_1k
+  session["seisan_500"] = seisan_500
+  session["seisan_100"] = seisan_100
+  session["seisan_all"] = seisan_all
+  return render_template ("seisan_calc.html", seisan_sum = seisan_sum, seisan_all = seisan_all, form_data = session)
 
  
 if __name__ == '__main__':

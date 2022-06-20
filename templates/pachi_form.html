@@ -1,48 +1,107 @@
 {%- block content %}
+{% if form_data %}
+
 <form action="/pachi_calc" method="POST" enctype="multipart/form-data">
-    <input type="number" name="p1_1k" value=1>
-    <input type="number" name="p1_10k" value=1>
-    <input type="number" name="p1_5k" value=1>
+    <input type="number" required name="p1_1k" value={{session["p1_1k"]}}>
+    <input type="number" required name="p1_10k" value={{session["p1_10k"]}}>
+    <input type="number" required name="p1_5k" value={{session["p1_5k"]}}>
 
-    <input type="number" name="p2_1k" value=1>
-    <input type="number" name="p2_10k" value=1>
-    <input type="number" name="p2_5k" value=1>
+    <input type="number" required name="p2_1k" value={{session["p2_1k"]}}>
+    <input type="number" required name="p2_10k" value={{session["p2_10k"]}}>
+    <input type="number" required name="p2_5k" value={{session["p2_5k"]}}>
 
-    <input type="number" name="p3_1k" value=1>
-    <input type="number" name="p3_10k" value=1>
-    <input type="number" name="p3_5k" value=1>
 
-    <input type="number" name="p4_1k" value=1>
-    <input type="number" name="p4_10k" value=1>
-    <input type="number" name="p4_5k" value=1>
+    <input type="number" required name="p3_1k" value={{session["p3_1k"]}}>
+    <input type="number" required name="p3_10k" value={{session["p3_10k"]}}>
+    <input type="number" required name="p3_5k" value={{session["p3_5k"]}}>
 
-    <input type="number" name="p5_1k" value=1>
-    <input type="number" name="p5_10k" value=1>
-    <input type="number" name="p5_5k" value=1>
 
-    <input type="number" name="p6_1k" value=1>
-    <input type="number" name="p6_10k" value=1>
-    <input type="number" name="p6_5k" value=1>
+    <input type="number" required name="p4_1k" value={{session["p4_1k"]}}>
+    <input type="number" required name="p4_10k" value={{session["p4_10k"]}}>
+    <input type="number" required name="p4_5k" value={{session["p4_5k"]}}>
 
-    <input type="number" name="p7_1k" value=1>
-    <input type="number" name="p7_10k" value=1>
-    <input type="number" name="p7_5k" value=1>
 
-    <input type="number" name="p8_1k" value=1>
-    <input type="number" name="p8_10k" value=1>
-    <input type="number" name="p8_5k" value=1>
+    <input type="number" required name="p5_1k" value={{session["p5_1k"]}}>
+    <input type="number" required name="p5_10k" value={{session["p5_10k"]}}>
+    <input type="number" required name="p5_5k" value={{session["p5_5k"]}}>
 
-    <input type="number" name="p9_1k" value=1>
-    <input type="number" name="p9_10k" value=1>
-    <input type="number" name="p9_5k" value=1>
 
-    <input type="number" name="p10_1k" value=1>
-    <input type="number" name="p10_10k" value=1>
-    <input type="number" name="p10_5k" value=1>
+    <input type="number" required name="p6_1k" value={{session["p6_1k"]}}>
+    <input type="number" required name="p6_10k" value={{session["p6_10k"]}}>
+    <input type="number" required name="p6_5k" value={{session["p6_5k"]}}>
+
+    <input type="number" required name="p7_1k" value={{session["p7_1k"]}}>
+    <input type="number" required name="p7_10k" value={{session["p7_10k"]}}>
+    <input type="number" required name="p7_5k" value={{session["p7_5k"]}}>
+
+
+    <input type="number" required name="p8_1k" value={{session["p8_1k"]}}>
+    <input type="number" required name="p8_10k" value={{session["p8_10k"]}}>
+    <input type="number" required name="p8_5k" value={{session["p8_5k"]}}>
+
+
+    <input type="number" required name="p9_1k" value={{session["p9_1k"]}}>
+    <input type="number" required name="p9_10k" value={{session["p9_10k"]}}>
+    <input type="number" required name="p9_5k" value={{session["p9_5k"]}}>
+
+
+    <input type="number" required name="p10_1k" value={{session["p10_1k"]}}>
+    <input type="number" required name="p10_10k" value={{session["p10_10k"]}}>
+    <input type="number" required name="p10_5k" value={{session["p10_5k"]}}>
+
   
-    <input type="number" name="pachi_all" value=1>
+    <input type="number" required name="pachi_all" value={{session["pachi_all"]}}>
 
-    <input type="submit" value="送信" value=1>
+    <input type="submit" value="送信" >
 
 </form>
+
+{% else %}
+<form action="/pachi_calc" method="POST" enctype="multipart/form-data">
+    <input type="number" required name="p1_1k" value=1>
+    <input type="number" required name="p1_10k" value=1>
+    <input type="number" required name="p1_5k" value=1>
+
+    <input type="number" required name="p2_1k" value=1>
+    <input type="number" required name="p2_10k" value=1>
+    <input type="number" required name="p2_5k" value=1>
+
+    <input type="number" required name="p3_1k" value=1>
+    <input type="number" required name="p3_10k" value=1>
+    <input type="number" required name="p3_5k" value=1>
+
+    <input type="number" required name="p4_1k" value=1>
+    <input type="number" required name="p4_10k" value=1>
+    <input type="number" required name="p4_5k" value=1>
+
+    <input type="number" required name="p5_1k" value=1>
+    <input type="number" required name="p5_10k" value=1>
+    <input type="number" required name="p5_5k" value=1>
+
+    <input type="number" required name="p6_1k" value=1>
+    <input type="number" required name="p6_10k" value=1>
+    <input type="number" required name="p6_5k" value=1>
+
+    <input type="number" required name="p7_1k" value=1>
+    <input type="number" required name="p7_10k" value=1>
+    <input type="number" required name="p7_5k" value=1>
+
+    <input type="number" required name="p8_1k" value=1>
+    <input type="number" required name="p8_10k" value=1>
+    <input type="number" required name="p8_5k" value=1>
+
+    <input type="number" required name="p9_1k" value=1>
+    <input type="number" required name="p9_10k" value=1>
+    <input type="number" required name="p9_5k" value=1>
+
+    <input type="number" required name="p10_1k" value=1>
+    <input type="number" required name="p10_10k" value=1>
+    <input type="number" required name="p10_5k" value=1>
+  
+    <input type="number" required name="pachi_all" value=1>
+
+    <input type="submit" value="送信" >
+
+</form>
+{% endif%}
 {%- endblock %}
