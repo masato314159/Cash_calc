@@ -46,6 +46,7 @@ def calc():
     bill_10k = int(request.form[slot_safeNum + "_10k"])
     bill_5k  = int(request.form[slot_safeNum + "_5k"])
     globals()[slot_safeNum] = Billcount(bill_1k, bill_10k, bill_5k)
+    
     session[slot_safeNum + "_1k"] = bill_1k
     session[slot_safeNum + "_10k"] = bill_10k
     session[slot_safeNum + "_5k"] = bill_5k
@@ -58,11 +59,18 @@ def calc():
   slot_sumNums = [sa.sum, sb.sum]
   for slot_sumNum in slot_sumNums:
     slot_sum += slot_sumNum
-  return render_template ("slot_calc.html",slot_all = slot_all, slot_sum = slot_sum, form_data = session) 
+  return render_template ("slot_calc.html",
+                          slot_all = slot_all,
+                          slot_sum = slot_sum,
+                          form_data = session,
+                          sa = sa,
+                          sb = sb
+                          ) 
 
 @app.route("/pachi_calc",methods=["POST"])   
 def pachi_calc():
-  pachi_safeNums = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","p10"]
+  pachi_safeNums = ["p1","p2","p3","p4","p5",
+                    "p6","p7","p8","p9","p10"]
   for pachi_safeNum in pachi_safeNums:
     bill_1k = int(request.form[pachi_safeNum + "_1k"])
     bill_10k = int(request.form[pachi_safeNum + "_10k"])
@@ -82,7 +90,11 @@ def pachi_calc():
     pachi_sum += pachi_sumNum
   print(pachi_sum)
   
-  return render_template ("pachi_calc.html", pachi_sum = pachi_sum ,pachi_all = pachi_all ,form_data = session) 
+  return render_template ("pachi_calc.html",
+                          pachi_sum = pachi_sum,
+                          pachi_all = pachi_all,
+                          form_data = session
+                          ) 
 
 
 @app.route("/seisan_calc",methods=["POST"])
@@ -96,7 +108,11 @@ def seisan_calc():
   session["seisan_500"] = seisan_500
   session["seisan_100"] = seisan_100
   session["seisan_all"] = seisan_all
-  return render_template ("seisan_calc.html", seisan_sum = seisan_sum, seisan_all = seisan_all, form_data = session)
+  return render_template ("seisan_calc.html",
+                          seisan_sum = seisan_sum,
+                          seisan_all = seisan_all,
+                          form_data = session
+                          )
 
  
 if __name__ == '__main__':

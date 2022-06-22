@@ -1,11 +1,46 @@
 {%- extends "base.html" %}
+
 {%- block content %}
+
 {%- include "slot_form.html" %}
+
+
 {% if slot_all == slot_sum %}
-<p>slot sum ok</p>
+<p>
+スロット回収金一致<br>
+パチンコ回収金を入力してください。
+</p>
 {%- include "pachi_form.html" %}
+
 {% else %}
-<p>sum error plz check again</p>
+<p>スロット回収金誤差発生<br>
+島一覧を照会し箇所を特定してください。
+</p>
+<table border>
+<tr align="right">
+<td></td>
+<td>10,000</td>
+<td>5,000</td>
+<td>1,000</td>
+<td align="center">合計</td>
+</tr>
+<tr align="right">
+<td>A側</td>
+<td>{{ sa.bill_10k}}枚</td>
+<td>{{ sa.bill_5k}}枚</td>
+<td>{{ sa.bill_1k}}枚</td>
+<td>{{ sa.sum}}</td>
+</tr>
+<tr align="right">
+<td>B側</td>
+<td>{{ sb.bill_10k}}枚</td>
+<td>{{ sb.bill_5k}}枚</td>
+<td>{{ sb.bill_1k}}枚</td>
+<td>{{ sb.sum}}</td>
+</tr>
+</table>
+
+
 {% endif %}
 
 
