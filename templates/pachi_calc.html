@@ -2,7 +2,10 @@
 {%- block content %}
 {%- include "pachi_form.html" %}
 {% if pachi_sum == pachi_all %}
-<p>pachi sum ok</p>
+<p>
+パチンコ回収金一致<br>
+精算機回収金を入力してください。
+</p>
 {%- include "seisan_form.html" %}
 
 {% else %}

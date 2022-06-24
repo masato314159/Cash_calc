@@ -88,8 +88,7 @@ def pachi_calc():
                    ]
   for pachi_sumNum in pachi_sumNums:
     pachi_sum += pachi_sumNum
-  print(pachi_sum)
-  
+    
   return render_template ("pachi_calc.html",
                           pachi_sum = pachi_sum,
                           pachi_all = pachi_all,
@@ -112,14 +111,24 @@ def seisan_calc():
   session["seisan_500"] = seisan_500
   session["seisan_100"] = seisan_100
   session["seisan_all"] = seisan_all
-  return render_template ("seisan_calc.html",
-                          seisan_sum = seisan_sum,
-                          seisan_all = seisan_all,
-                          form_data = session,
-                          seisan_1k = seisan_1k,
-                          seisan_500 = seisan_500,
-                          seisan_100 = seisan_100,
-                          )
+  session["seisan_sum"] = seisan_sum
+   
+  return render_template ("seisan_calc.html")
+
+@app.route("/input_value", methods=["POST"])
+def input_value():
+  all_sum += 
+  hall_com = int(request.form["hall_com"])
+  if all_sum == hall_com:
+    chk = True
+  
+  
+  
+  
+  return render_template("input_value.html", chk = chk)
+
+
+# sessionクリアボタン　session無限
 
  
 if __name__ == '__main__':
