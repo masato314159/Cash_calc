@@ -93,7 +93,11 @@ def pachi_calc():
   return render_template ("pachi_calc.html",
                           pachi_sum = pachi_sum,
                           pachi_all = pachi_all,
-                          form_data = session
+                          form_data = session,
+                          p1 = p1, p2 = p2, p3 = p3,
+                          p4 = p4, p5 = p5, p6 = p6,
+                          p7 = p7, p8 = p8, p9 = p9,
+                          p10 = p10
                           ) 
 
 
@@ -111,7 +115,10 @@ def seisan_calc():
   return render_template ("seisan_calc.html",
                           seisan_sum = seisan_sum,
                           seisan_all = seisan_all,
-                          form_data = session
+                          form_data = session,
+                          seisan_1k = seisan_1k,
+                          seisan_500 = seisan_500,
+                          seisan_100 = seisan_100,
                           )
 
  

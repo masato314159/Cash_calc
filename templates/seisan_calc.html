@@ -5,7 +5,36 @@
 <p>seisan sum ok</p>
 
 {% else %}
-<p>sum error plz check again</p>
+<p>精算回収金誤差発生<br>
+照会し誤差を特定してください。
+</p>
+<table border>
+    <tr>
+        <td>1,000</td>
+        <td>500</td>
+        <td>100</td>
+        <td>回収</td>
+        <td>精算</td>
+    </tr>
+    <tr>
+        <td>
+            {{ seisan_1k }}
+        </td>
+        <td>
+            {{ seisan_500 }}
+        </td>
+        <td>
+            {{ seisan_100 }}
+        </td>
+        <td>
+            {{ seisan_sum }}
+        </td>
+        <td>
+            {{ 1000000 - seisan_sum }}
+        </td>
+    </tr>
+    </table>
+    
 {% endif %}
 
 
