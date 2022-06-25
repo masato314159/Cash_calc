@@ -2,6 +2,14 @@
 {%- block content %}
 {% if chk %}
 ok
+
 {% else %}
 ng
+
+<form action="/input_value" method="POST">
+ホールコン現金有高
+<input type="number" required name="hall_com" value={{session["hall_com"]}}>
+<input type="submit" value="送信">
+
+{% endif %}
 {%- endblock %}

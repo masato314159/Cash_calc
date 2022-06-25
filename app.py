@@ -117,17 +117,31 @@ def seisan_calc():
 
 @app.route("/input_value", methods=["POST"])
 def input_value():
-  all_sum += 
+  all_sum = 0
+  sums = ["slot_all", "pachi_all", "seisan_sum"]
+  for sum in sums:
+    all_sum += session[sum]
   hall_com = int(request.form["hall_com"])
-  if all_sum == hall_com:
+  session["all_sum"] = all_sum
+  if all_sum - 1000000 == hall_com:
     chk = True
-  
-  
-  
-  
+    money =  all_sum - 1000000
+    bills = [10000,5000,1000,500,100]
+    for bill in bills:
+      num_sheet = money // bill
+      money %= bill
+      session[bill] = num_sheet
+
+  else:
+    chk = False
   return render_template("input_value.html", chk = chk)
 
 
+@app.route("/clear", methods=["POST"])
+def clear():
+  session.clear()
+  return render_template("index.html")
+  
 # sessionクリアボタン　session無限
 
  
