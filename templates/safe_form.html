@@ -1,0 +1,40 @@
+{%- block content %}
+
+<table border>
+    <tr>
+        <td></td>
+        <td>金庫残</td>
+    </tr>
+    <tr>
+        <td>10,000</td>
+        <td>
+            <input type="number" required name="safe_10k" value={{session["safe_10k"]}}>
+        </td>
+    </tr>
+    <tr>
+        <td>5,000</td>
+        <td>
+            <input type="number" required name="safe_5k" value={{session["safe_5k"]}}>
+        </td>
+    </tr>
+    <tr>
+        <td>1,000</td>
+        <td>
+            <input type="number" required name="safe_1k" value={{session["safe_1k"]}}>
+        </td>
+    </tr>
+    <tr>
+        <td>500</td>
+        <td>
+            <input type="number" required name="safe_500" value={{session["safe_500"]}}>
+        </td>
+    </tr>
+    <tr>
+        <td>100</td>
+        <td>
+            <input type="number" required name="safe_100" value={{session["safe_100"]}}>
+        </td>
+    </tr>
+</table>
+
+{%- endblock %}

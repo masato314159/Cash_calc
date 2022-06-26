@@ -117,12 +117,14 @@ def seisan_calc():
 
 @app.route("/input_value", methods=["POST"])
 def input_value():
+  d = {"1":1}
   all_sum = 0
   sums = ["slot_all", "pachi_all", "seisan_sum"]
   for sum in sums:
     all_sum += session[sum]
-  hall_com = int(request.form["hall_com"])
   session["all_sum"] = all_sum
+  hall_com = int(request.form["hall_com"])
+  session["hall_com"] = hall_com
   if all_sum - 1000000 == hall_com:
     chk = True
     money =  all_sum - 1000000
@@ -130,13 +132,34 @@ def input_value():
     for bill in bills:
       num_sheet = money // bill
       money %= bill
-      session[bill] = num_sheet
-
+      d[bill] = num_sheet
   else:
     chk = False
-  return render_template("input_value.html", chk = chk)
+  return render_template("input_value.html", chk = chk, d = d)
 
-
+@app.route("/safe_margin_calc", methods=["POST"])
+def safe_margin_calc():
+  lists = ["safe_10k", "safe_5k", "safe_1k",
+           "safe_500", "safe_100","y_margin",
+           "margin_10k", "margin_1k", "margin_100"]
+  for list in lists:
+    locals()[list] = int(request.form[list])
+    session[list] = int(request.form[list])
+    
+  # safe_5k = int(request.form["safe_5k"])
+  # safe_1k = int(request.form["safe_1k"])
+  # safe_500 = int(request.form["safe_500"])
+  # safe_100 = int(request.form["safe_100"])
+  # y_margin = int(request.form["y_margin"])
+  # margin_10k = int(request.form["margin_10k"])
+  # margin_1k = int(request.form["margin_1k"])
+  # margin_100 = int(request.form["margin_100"])
+  
+  # safe_all = safe_10k * 10000 + safe_
+  
+  return render_template("input_value.html")
+  
+  
 @app.route("/clear", methods=["POST"])
 def clear():
   session.clear()
