@@ -2,52 +2,111 @@
 {%- block content %}
 {% if chk %}
 売上一致<br>
-現金有高記入例
-<table border>
+
+<table border=0>
     <tr>
-        <td></td>
-        <td>枚数</td>
-    </tr>
-    <tr>
-        <td>10,000</td>
         <td>
-        {{ d.10000 }}
-        </td>
-    </tr>
-    <tr>
-        <td>5,000</td>
+
+            現金有高記入例
+            <table border>
+                <tr>
+                    <td>金種</td>
+                    <td>枚数</td>
+                </tr>
+                <tr>
+                    <td>10,000</td>
+                    <td>
+                    {{ d.10000 }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>5,000</td>
+                    <td>
+                    {{ d.5000 }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>1,000</td>
+                    <td>
+                    {{ d.1000 }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                    {{ d.500 }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>100</td>
+                    <td>
+                    {{ d.100 }}
+                    </td>
+                </tr>
+            </table>
+        </td>        
+
         <td>
-        {{ d.5000 }}
+            回収硬貨
+            <table border>
+                <tr>
+                <td>金種</td>
+                <td>枚数</td>
+                </tr>
+                <tr>
+                <td>500</td>
+                <td>{{ session.seisan_500 }}</td>
+                </tr>
+                <tr>
+                <td>100</td>
+                <td>
+                    {{ session.seisan_100 }}
+                </td>
+                </tr>
+            </table>
         </td>
-    </tr>
-    <tr>
-        <td>1,000</td>
-        <td>
-        {{ d.1000 }}
-        </td>
-    </tr>
-    <tr>
-        <td>500</td>
-        <td>
-        {{ d.500 }}
-        </td>
-    </tr>
-    <tr>
-        <td>100</td>
-        <td>
-        {{ d.100 }}
-        </td>
+
     </tr>
 </table>
+
 
 <form action="/safe_margin_calc" method="POST">
 {%- include "safe_form.html" %}
 前日マージン残
 <input type="number" required name="y_margin" value={{session["y_margin"]}}>
+<br>
+当日マージン
+<input type="number" required name="t_margin" value={{session["t_margin"]}}>
+<br>
+追加マージン
+<input type="number" required name="add_margin" value={{session["add_margin"]}}>
+
 当日マージン残
-<input type="number" required name="margin_10k" value={{session["margin_10k"]}}>
-<input type="number" required name="margin_1k" value={{session["margin_1k"]}}>
-<input type="number" required name="margin_100" value={{session["margin_100"]}}>
+<table border>
+    <tr>
+    <td></td>
+    <td>枚数</td>
+    </tr>
+    <tr>
+    <td>10,000</td>
+    <td>
+        <input type="number" required name="margin_10k" value={{session["margin_10k"]}}>
+    </td>
+    </tr>
+    <tr>
+    <td>1,000</td>
+    <td>
+        <input type="number" required name="margin_1k" value={{session["margin_1k"]}}>
+    </td>
+    </tr>
+    <tr>
+    <td>100</td>
+    <td>
+        <input type="number" required name="margin_100" value={{session["margin_100"]}}>
+    </td>
+    </tr>
+    </table>
+
 <input type="submit" value="送信">
 
 </form>

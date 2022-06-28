@@ -17,8 +17,13 @@ class Billcount:
     self.bill_10k = bill_10k
     self.bill_5k = bill_5k
     self.sum = bill_1k* 1000 + bill_10k * 10000 + bill_5k * 5000
- 
-   
+
+
+# 金庫総額
+total_safe = 1500000
+
+# 営業セット金
+set_money = 1000000
 
 
 @app.route("/",methods=["get"])
@@ -125,9 +130,9 @@ def input_value():
   session["all_sum"] = all_sum
   hall_com = int(request.form["hall_com"])
   session["hall_com"] = hall_com
-  if all_sum - 1000000 == hall_com:
+  if all_sum - set_money == hall_com:
     chk = True
-    money =  all_sum - 1000000
+    money =  all_sum - set_money
     bills = [10000,5000,1000,500,100]
     for bill in bills:
       num_sheet = money // bill
@@ -139,12 +144,27 @@ def input_value():
 
 @app.route("/safe_margin_calc", methods=["POST"])
 def safe_margin_calc():
-  lists = ["safe_10k", "safe_5k", "safe_1k",
-           "safe_500", "safe_100","y_margin",
+  lists = ["safe_10k", "safe_5k", "safe_1k", "safe_500",
+           "safe_100","y_margin", "t_margin","add_margin"
            "margin_10k", "margin_1k", "margin_100"]
   for list in lists:
     locals()[list] = int(request.form[list])
     session[list] = int(request.form[list])
+    
+  safe_lists = [safe_10k, safe_5k, safe_1k,
+                safe_500, safe_100
+                ]
+  for safe_list in safe_lists:
+    safe_all += safe_list
+  
+  margin_lists = [margin_10k, margin_1k, margin_100] 
+  for margin_list in margin_lists:
+    margin_all += margin_list
+  
+  
+  
+  if safe_all == total_safe and margin_all 
+    
     
   # safe_5k = int(request.form["safe_5k"])
   # safe_1k = int(request.form["safe_1k"])
@@ -157,7 +177,7 @@ def safe_margin_calc():
   
   # safe_all = safe_10k * 10000 + safe_
   
-  return render_template("input_value.html")
+  return render_template("")
   
   
 @app.route("/clear", methods=["POST"])
