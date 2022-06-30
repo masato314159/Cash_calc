@@ -1,6 +1,8 @@
 from flask import Flask, render_template,request,session
 from datetime import timedelta
 
+from regex import B
+
 app = Flask(__name__)
 
 app.secret_key = 'test'
@@ -18,31 +20,18 @@ class Billcount:
     self.bill_5k = bill_5k
     self.sum = bill_1k* 1000 + bill_10k * 10000 + bill_5k * 5000
 
-
 # 金庫総額
 total_safe = 1500000
 
 # 営業セット金
 set_money = 1000000
 
-
 @app.route("/",methods=["get"])
 def index():
   return render_template ("index.html")
-
         
 @app.route("/slot_calc",methods=["POST"])
 def calc():
-  # def check():
-  #   slot_safeNums = ["sa", "sb"]
-  #   bill_types = ["_1k","_10k","_5k" ]
-  #   for slot_safeNum in slot_safeNums:
-  #     for bill_type in bill_types:
-  #       if request.form[slot_safeNum + bill_type] == None:
-  #         return render_template ("index.html", a = "数値を全ての欄に入力してください。")
-          
-        
-    
   slot_safeNums = ["sa", "sb"]
   bill_types = ["_1k","_10k","_5k" ]
   
@@ -144,27 +133,47 @@ def input_value():
 
 @app.route("/safe_margin_calc", methods=["POST"])
 def safe_margin_calc():
-  lists = ["safe_10k", "safe_5k", "safe_1k", "safe_500",
-           "safe_100","y_margin", "t_margin","add_margin"
-           "margin_10k", "margin_1k", "margin_100"]
-  for list in lists:
-    locals()[list] = int(request.form[list])
-    session[list] = int(request.form[list])
+  var_list = ["safe_10k", "safe_5k", "safe_1k", "safe_500",
+           "safe_100","y_margin", "t_margin","add_margin",
+           "margin_10k", "margin_1k", "margin_100"
+           ]
+
+  for i in range(len(var_list)):
+    session[var_list[i]] = int(request.form[var_list[i]])
+
+  #locals を使うとあとで参照していない　y_margin t_margin add_margin しか変数作成されないし not defindが出る globalsでいけるけど却下
     
+  # for list in var_list:
+  #   locals()[list] = int(request.form[list])
+  #   session[list] = int(request.form[list])
+  
+  # for i in range(len(var_list)):
+  #   var_name = var_list[i]
+  #   exec("{} = 1".format(var_name))
+
+  # for i in range(len(var_list)):
+  #  var_name = var_list[i]
+  #  exec("%s = %d" % (var_name,100))
+    
+  safe_10k = session["safe_10k"] + 10000
+  safe_5k = session["safe_5k"] + 10000
+  safe_1k = session["safe_1k"] + 10000
+  safe_500 *= 500
+  safe_100 *= 100  
   safe_lists = [safe_10k, safe_5k, safe_1k,
                 safe_500, safe_100
                 ]
   for safe_list in safe_lists:
     safe_all += safe_list
   
+  margin_10k *= 10000
+  margin_1k *= 1000
+  margin_100 *= 100 
   margin_lists = [margin_10k, margin_1k, margin_100] 
   for margin_list in margin_lists:
     margin_all += margin_list
-  
-  
-  
-  if safe_all == total_safe and margin_all 
     
+  chk = True if safe_all == total_safe and y_margin + add_margin - margin_all == t_margin else False
     
   # safe_5k = int(request.form["safe_5k"])
   # safe_1k = int(request.form["safe_1k"])
@@ -177,7 +186,7 @@ def safe_margin_calc():
   
   # safe_all = safe_10k * 10000 + safe_
   
-  return render_template("")
+  return render_template("safe_margin_calc", chk = chk)
   
   
 @app.route("/clear", methods=["POST"])
