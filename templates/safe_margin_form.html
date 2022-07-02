@@ -1,0 +1,83 @@
+{%- block content %}
+
+<form action="/safe_margin_calc" method="POST">
+    <table border>
+        <tr>
+            <td></td>
+            <td>金庫残</td>
+        </tr>
+        <tr>
+            <td>10,000</td>
+            <td>
+                <input type="number" required name="safe_10k" value={{session["safe_10k"]}}>
+            </td>
+        </tr>
+        <tr>
+            <td>5,000</td>
+            <td>
+                <input type="number" required name="safe_5k" value={{session["safe_5k"]}}>
+            </td>
+        </tr>
+        <tr>
+            <td>1,000</td>
+            <td>
+                <input type="number" required name="safe_1k" value={{session["safe_1k"]}}>
+            </td>
+        </tr>
+        <tr>
+            <td>500</td>
+            <td>
+                <input type="number" required name="safe_500" value={{session["safe_500"]}}>
+            </td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>
+                <input type="number" required name="safe_100" value={{session["safe_100"]}}>
+            </td>
+        </tr>
+    </table>
+    前日マージン残
+    <input type="number" required name="y_margin" value={{session["y_margin"]}}>
+    <br>
+    当日マージン
+    <input type="number" required name="t_margin" value={{session["t_margin"]}}>
+    <br>
+    追加マージン
+    {% if session["add_margin"] %}
+    <input type="number" required name="add_margin" value={{session["add_margin"]}}>
+    {% else %}
+    <input type="number" required name="add_margin" value=0>
+    {% endif %}
+    <br>
+    当日マージン残
+    <table border>
+        <tr>
+        <td></td>
+        <td>枚数</td>
+        </tr>
+        <tr>
+        <td>10,000</td>
+        <td>
+            <input type="number" required name="margin_10k" value={{session["margin_10k"]}}>
+        </td>
+        </tr>
+        <tr>
+        <td>1,000</td>
+        <td>
+            <input type="number" required name="margin_1k" value={{session["margin_1k"]}}>
+        </td>
+        </tr>
+        <tr>
+        <td>100</td>
+        <td>
+            <input type="number" required name="margin_100" value={{session["margin_100"]}}>
+        </td>
+        </tr>
+    </table>
+
+    <input type="submit" value="送信">
+
+</form>
+
+{%- endblock %}

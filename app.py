@@ -1,14 +1,12 @@
 from flask import Flask, render_template,request,session
 from datetime import timedelta
 
-from regex import B
-
 app = Flask(__name__)
 
 app.secret_key = 'test'
 app.permanent_session_lifetime = timedelta(minutes=300)
 
-
+#そもそもクラスいるのか問題
 class Billcount:
   def __init__(self,
                bill_1k,
@@ -25,6 +23,9 @@ total_safe = 1500000
 
 # 営業セット金
 set_money = 1000000
+
+#上記二つの値は店舗ごとに違うのでコンフィグファイルかなんかつくって
+#ブラウザからいじれるように
 
 @app.route("/",methods=["get"])
 def index():
@@ -96,6 +97,7 @@ def pachi_calc():
 
 @app.route("/seisan_calc",methods=["POST"])
 def seisan_calc():    
+  #ここらへんあとでうまくまとめれないか　そもそもローカルにいれる必要あるのか再検討
   seisan_1k = int(request.form["seisan_1k"])
   seisan_500 = int(request.form["seisan_500"])
   seisan_100 = int(request.form["seisan_100"])
@@ -137,11 +139,14 @@ def safe_margin_calc():
            "safe_100","y_margin", "t_margin","add_margin",
            "margin_10k", "margin_1k", "margin_100"
            ]
+  
+  #↑金庫とマージンの辞書を別で作成して結合する、あとで
 
   for i in range(len(var_list)):
     session[var_list[i]] = int(request.form[var_list[i]])
 
-  #locals を使うとあとで参照していない　y_margin t_margin add_margin しか変数作成されないし not defindが出る globalsでいけるけど却下
+  #locals を使うとあとで参照していない　y_margin t_margin add_margin しか変数作成されないし、
+  # あとで　not defindが出る globalsでいけるけどsessionで保持した方が実務上いいかも?
     
   # for list in var_list:
   #   locals()[list] = int(request.form[list])
@@ -154,39 +159,30 @@ def safe_margin_calc():
   # for i in range(len(var_list)):
   #  var_name = var_list[i]
   #  exec("%s = %d" % (var_name,100))
-    
-  safe_10k = session["safe_10k"] + 10000
-  safe_5k = session["safe_5k"] + 10000
-  safe_1k = session["safe_1k"] + 10000
-  safe_500 *= 500
-  safe_100 *= 100  
-  safe_lists = [safe_10k, safe_5k, safe_1k,
-                safe_500, safe_100
-                ]
-  for safe_list in safe_lists:
-    safe_all += safe_list
   
-  margin_10k *= 10000
-  margin_1k *= 1000
-  margin_100 *= 100 
-  margin_lists = [margin_10k, margin_1k, margin_100] 
-  for margin_list in margin_lists:
-    margin_all += margin_list
-    
-  chk = True if safe_all == total_safe and y_margin + add_margin - margin_all == t_margin else False
-    
-  # safe_5k = int(request.form["safe_5k"])
-  # safe_1k = int(request.form["safe_1k"])
-  # safe_500 = int(request.form["safe_500"])
-  # safe_100 = int(request.form["safe_100"])
-  # y_margin = int(request.form["y_margin"])
-  # margin_10k = int(request.form["margin_10k"])
-  # margin_1k = int(request.form["margin_1k"])
-  # margin_100 = int(request.form["margin_100"])
   
-  # safe_all = safe_10k * 10000 + safe_
+  safe_list = ["safe_10k", "safe_5k", "safe_1k",
+               "safe_500", "safe_100"]
+  margin_list = ["margin_10k", "margin_1k", "margin_100"]
   
-  return render_template("safe_margin_calc", chk = chk)
+  
+  bills = [10000,5000,1000,500,100]
+  margin_bills = [10000, 1000, 100]
+  safe_sum = 0
+  margin_all = 0
+  
+  
+  for a, b in zip(var_list, bills):
+    safe_sum += session[a] * b
+  
+  for a, b in zip(margin_list, margin_bills):
+    margin_all += session[a] * b
+  
+  chk = (True if safe_sum == total_safe and session["y_margin"]
+         + session["add_margin"] - margin_all == session["t_margin"] else False)
+  session["safe_sum"] = safe_sum
+  
+  return render_template("safe_margin_calc.html", chk = chk)
   
   
 @app.route("/clear", methods=["POST"])
