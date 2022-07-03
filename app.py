@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,session
+from flask import Flask, render_template,request,session,redirect
 from datetime import timedelta
 
 app = Flask(__name__)
@@ -178,17 +178,18 @@ def safe_margin_calc():
   for a, b in zip(margin_list, margin_bills):
     margin_all += session[a] * b
   
-  chk = (True if safe_sum == total_safe and session["y_margin"]
-         + session["add_margin"] - margin_all == session["t_margin"] else False)
+  chk1 = True if safe_sum == total_safe else False
+  chk2 = True if session["y_margin"] + session["add_margin"] - margin_all == session["t_margin"] else False
   session["safe_sum"] = safe_sum
+  session["margin_all"] = margin_all
   
-  return render_template("safe_margin_calc.html", chk = chk)
+  return render_template("safe_margin_calc.html", chk1 = chk1, chk2 = chk2)
   
   
-@app.route("/clear", methods=["POST"])
+@app.route("/clear", methods=["get"])
 def clear():
   session.clear()
-  return render_template("index.html")
+  return redirect("/")
   
 # sessionクリアボタン　session無限
 

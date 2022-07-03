@@ -2,7 +2,7 @@
 {%- block content %}
 
 {% if chk %}
-売上一致<br>
+<p>売上一致</p>
 
 <table border=0>
     <tr>
@@ -73,7 +73,7 @@
 {%- include "safe_margin_form.html" %}
 
 {% else %}
-売上不一致
+<p>売上不一致</p>
 
 <form action="/input_value" method="POST">
 ホールコン現金有高
