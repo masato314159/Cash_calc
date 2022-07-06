@@ -1,10 +1,13 @@
 from flask import Flask, render_template,request,session,redirect
 from datetime import timedelta
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 
 app.secret_key = 'test'
 app.permanent_session_lifetime = timedelta(minutes=300)
+
+bootstrap = Bootstrap(app)
 
 #そもそもクラスいるのか問題
 class Billcount:
@@ -18,7 +21,7 @@ class Billcount:
     self.bill_5k = bill_5k
     self.sum = bill_1k* 1000 + bill_10k * 10000 + bill_5k * 5000
 
-# 金庫総額
+# 金庫総額・両替準備金
 total_safe = 1500000
 
 # 営業セット金

@@ -1,8 +1,8 @@
-{%- extends "base.html" %}
+{%- extends "bootstrap/base.html" %}
 
 {%- block content %}
 
-{%- include "slot_form.html" %}
+
 
 
 {% if slot_all == slot_sum %}
@@ -13,6 +13,8 @@
 {%- include "pachi_form.html" %}
 
 {% else %}
+{%- include "slot_form.html" %}
+
 <p>スロット回収金誤差発生<br>
 島一覧を照会し箇所を特定してください。
 </p>
