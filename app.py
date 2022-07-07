@@ -138,10 +138,11 @@ def input_value():
 
 @app.route("/safe_margin_calc", methods=["POST"])
 def safe_margin_calc():
-  var_list = ["safe_10k", "safe_5k", "safe_1k", "safe_500",
-           "safe_100","y_margin", "t_margin","add_margin",
-           "margin_10k", "margin_1k", "margin_100"
-           ]
+  var_list = [
+    "safe_10k", "safe_5k", "safe_1k", "safe_500",
+    "safe_100","y_margin", "t_margin","add_margin",
+    "margin_10k", "margin_1k", "margin_100"
+    ]
   
   #↑金庫とマージンの辞書を別で作成して結合する、あとで
 
@@ -164,8 +165,10 @@ def safe_margin_calc():
   #  exec("%s = %d" % (var_name,100))
   
   
-  safe_list = ["safe_10k", "safe_5k", "safe_1k",
-               "safe_500", "safe_100"]
+  safe_list = [
+     "safe_10k", "safe_5k", "safe_1k",
+     "safe_500", "safe_100"
+     ]
   margin_list = ["margin_10k", "margin_1k", "margin_100"]
   
   
