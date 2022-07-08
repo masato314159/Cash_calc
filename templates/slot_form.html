@@ -1,62 +1,55 @@
 {%- block content %}
 <h1>スロット</h1>
 
-<div class="container">
-    <div class="table-responsive">
-<table calss="table" border width="100">
+
+  
+<table class="table table-striped-columns">
 <form action="/slot_calc" method="POST" enctype="multipart/form-data">
 <thead>
-    <th></th>
+    <th style="width: 10%;"></th>
     <th>1,000</th>
     <th>10,000</th>
     <th>5,000</th>
 </thead>
 <tbody>
 <tr>
-    <div class ="col-3">
     <td>A側</td>
-    </div>
     <td>
-<div class ="col-3">
-    <input type="number" required name="sa_1k" value={{session["sa_1k"]}}>
-</div>
-</div>        
-    
+    <input type="number" class="aaa"  required name="sa_1k" value={{session["sa_1k"]}}>
     </td>
     <td>
-        <div class ="col-3">
-    <input type="number" required name="sa_10k" value={{session["sa_10k"]}}>
-        </div>    
-</td>
+    <input type="number"  class="aaa" required name="sa_10k" value={{session["sa_10k"]}}>
+    </td>
     <td>
-        <div class ="col-3">
-        <input type="number" required name="sa_5k" value={{session["sa_5k"]}}>
-        </div>
+    <input type="number"  class="aaa" required name="sa_5k" value={{session["sa_5k"]}}>
     </td>
 </tr>
 <tr>
     <td>B側</td>
     <td>
-    <input type="number" required name="sb_1k" value={{session["sb_1k"]}}>
+    <input type="number"  class="aaa" required name="sb_1k" value={{session["sb_1k"]}}>
     </td>
     <td>
-    <input type="number" required name="sb_10k" value={{session["sb_10k"]}}>
+    <input type="number"  class="aaa" required name="sb_10k" value={{session["sb_10k"]}}>
     </td>
     <td>
-    <input type="number" required name="sb_5k" value={{session["sb_5k"]}}>
+    <input type="number"  class="aaa" required name="sb_5k" value={{session["sb_5k"]}}>
     </td>
 </tr> 
 
 </tbody>
 </table>
-</div>
-</div>
+
+
 
 合計金額
 <input type="number" required name="slot_all" value={{session["slot_all"]}}>
 
-    <input type="submit" value="送信" >
+    <input type="submit" class="btn btn-primary" value="送信" >
 </form>
+
+
+
 
 
 {%- endblock %}

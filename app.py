@@ -1,13 +1,11 @@
 from flask import Flask, render_template,request,session,redirect
 from datetime import timedelta
-from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 
 app.secret_key = 'test'
 app.permanent_session_lifetime = timedelta(minutes=300)
 
-bootstrap = Bootstrap(app)
 
 #そもそもクラスいるのか問題
 class Billcount:
