@@ -1,6 +1,6 @@
 {%- extends "base.html" %}
 {%- block content %}
-{%- include "seisan_form.html" %}
+
 {% if session["seisan_sum"] == 1000000 - session["seisan_all"] %}
 <p>
 精算機回収金一致
@@ -18,11 +18,11 @@
 <p>精算回収金誤差発生<br>
 照会し誤差を特定してください。
 </p>
-<table border>
+<table border class="table table-striped-columns">
     <tr>
-        <td>1,000</td>
-        <td>500</td>
-        <td>100</td>
+        <td>￥1,000</td>
+        <td>￥500</td>
+        <td>￥100</td>
         <td>回収</td>
         <td>精算</td>
     </tr>
@@ -37,14 +37,16 @@
             {{ session["seisan_100"] }}
         </td>
         <td>
-            {{ session["seisan_sum"] }}
+           ￥ {{ session["seisan_sum"] }}
         </td>
         <td>
-            {{ 1000000 - session["seisan_sum"] }}
+           ￥ {{ 1000000 - session["seisan_sum"] }}
         </td>
     </tr>
     </table>
     
+    {%- include "seisan_form.html" %}
+
 {% endif %}
 
 

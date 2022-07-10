@@ -1,6 +1,6 @@
 {%- extends "base.html" %}
 {%- block content %}
-{%- include "pachi_form.html" %}
+
 {% if pachi_sum == pachi_all %}
 <p>
 パチンコ回収金一致<br>
@@ -12,7 +12,10 @@
 <p>パチンコ回収金誤差発生<br>
 島一覧を照会し箇所を特定してください。
 </p>
-<table border>
+
+
+
+<table border class="table table-striped-columns">
     <tr>
     <td></td>
     <td>10,000</td>
@@ -25,72 +28,77 @@
         <td>{{ p1.bill_10k }}</td>
         <td>{{ p1.bill_5k }}</td>
         <td>{{ p1.bill_1k }}</td>
-        <td>{{ p1.sum }}</td>
+        <td>
+            
+            {{ p1.sum }}
+            <input type="checkbox"></td>
     </tr>
     <tr>
         <td>2</td>
         <td>{{ p2.bill_10k }}</td>
         <td>{{ p2.bill_5k }}</td>
         <td>{{ p2.bill_1k }}</td>
-        <td>{{ p2.sum }}</td>
+        <td>{{ p2.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>3</td>
         <td>{{ p3.bill_10k }}</td>
         <td>{{ p3.bill_5k }}</td>
         <td>{{ p3.bill_1k }}</td>
-        <td>{{ p3.sum }}</td>
+        <td>{{ p3.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>4</td>
         <td>{{ p4.bill_10k }}</td>
         <td>{{ p4.bill_5k }}</td>
         <td>{{ p4.bill_1k }}</td>
-        <td>{{ p4.sum }}</td>
+        <td>{{ p4.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>5</td>
         <td>{{ p5.bill_10k }}</td>
         <td>{{ p5.bill_5k }}</td>
         <td>{{ p5.bill_1k }}</td>
-        <td>{{ p5.sum }}</td>
+        <td>{{ p5.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>6</td>
         <td>{{ p6.bill_10k }}</td>
         <td>{{ p6.bill_5k }}</td>
         <td>{{ p6.bill_1k }}</td>
-        <td>{{ p6.sum }}</td>
+        <td>{{ p6.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>7</td>
         <td>{{ p7.bill_10k }}</td>
         <td>{{ p7.bill_5k }}</td>
         <td>{{ p7.bill_1k }}</td>
-        <td>{{ p7.sum }}</td>
+        <td>{{ p7.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>8</td>
         <td>{{ p8.bill_10k }}</td>
         <td>{{ p8.bill_5k }}</td>
         <td>{{ p8.bill_1k }}</td>
-        <td>{{ p8.sum }}</td>
+        <td>{{ p8.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>9</td>
         <td>{{ p9.bill_10k }}</td>
         <td>{{ p9.bill_5k }}</td>
         <td>{{ p9.bill_1k }}</td>
-        <td>{{ p9.sum }}</td>
+        <td>{{ p9.sum }} <input type="checkbox"> </td>
     </tr>
     <tr>
         <td>10</td>
         <td>{{ p10.bill_10k }}</td>
         <td>{{ p10.bill_5k }}</td>
         <td>{{ p10.bill_1k }}</td>
-        <td>{{ p10.sum }}</td>
+        <td>{{ p10.sum }} <input type="checkbox"> </td>
     </tr>
     </table>
+
+    {%- include "pachi_form.html" %}    
     
 {% endif %}
 

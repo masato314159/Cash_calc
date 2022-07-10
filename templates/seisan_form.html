@@ -1,22 +1,22 @@
 {%- block content %}
 
 <form action="/seisan_calc" method="POST" enctype="multipart/form-data">
-<table border>
+<table border class="table table-striped-columns">
     <tr>
     <td>1,000</td>
     <td>500</td>
     <td>100</td>
     </tr>
     <tr>
-    <td><input type="number" required name="seisan_1k" value={{session["seisan_1k"]}}></td>
-    <td><input type="number" required name="seisan_500" value={{session["seisan_500"]}}></td>
-    <td><input type="number" required name="seisan_100" value={{session["seisan_100"]}}></td>
+    <td><input type="number" class="aaa" required name="seisan_1k" value={{session["seisan_1k"]}}></td>
+    <td><input type="number" class="aaa" required name="seisan_500" value={{session["seisan_500"]}}></td>
+    <td><input type="number" class="aaa" required name="seisan_100" value={{session["seisan_100"]}}></td>
     </tr>
     </table>
    
     　　精算<input type="number" required name="seisan_all" value={{session["seisan_all"]}}>
 
-    <input type="submit" value="送信">
+    <input type="submit" class="btn btn-primary" value="送信">
 
 </form>
 

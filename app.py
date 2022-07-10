@@ -4,7 +4,7 @@ from datetime import timedelta
 app = Flask(__name__)
 
 app.secret_key = 'test'
-app.permanent_session_lifetime = timedelta(minutes=300)
+app.permanent_session_lifetime = timedelta(days=3)
 
 
 #そもそもクラスいるのか問題

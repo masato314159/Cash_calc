@@ -6,7 +6,7 @@
 <p>現金確認日報記入枚数・金額</p>
 
 金庫
-<table border>
+<table border class="table table-striped-columns">
     <tr>
         <td>￥10,000</td>
         <td>
@@ -77,7 +77,7 @@
 <br>
 福祉手数料
 
-<table border>
+<table border class="table table-striped-columns">
     <tr>
     <td>￥10,000</td>
     <td>
@@ -120,6 +120,7 @@
 {% elif not chk1 %}
 
 <p>金庫残誤差発生、再確認してください</p>
+<p>現在の金庫総額:￥{{ session.safe_sum }}</p>
 {%- include "safe_margin_form.html" %}
 
 

@@ -4,6 +4,9 @@ h1 {
 input.aaa{
     width:100%;
 }
+input.bbb{
+    width:50%;
+}
 thead th {
     /* 縦スクロール時に固定する */
     position: -webkit-sticky;
@@ -11,4 +14,9 @@ thead th {
     top: 0;
     /* tbody内のセルより手前に表示する */
     z-index: 1;
+    /* opacity: 1; */
+  }
+  table{
+    /* width:90%; */
+
   }
