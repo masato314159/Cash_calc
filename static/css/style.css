@@ -1,6 +1,17 @@
 h1 {
-    color: red;
+    color: rgb(82, 82, 240);
+    text-align: center;
+
 }
+h2 {
+    color:rgb(255, 52, 52);
+    text-align: center;
+}
+
+.wrap {
+    overflow: hidden; 
+}
+
 input.aaa{
     width:100%;
 }

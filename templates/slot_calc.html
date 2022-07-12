@@ -6,17 +6,17 @@
 
 
 {% if slot_all == slot_sum %}
-<p>
-スロット回収金一致<br>
-パチンコ回収金を入力してください。
+
+<h1>スロット回収金一致</h1>
+<p>パチンコ回収金を入力してください。
 </p>
 {%- include "pachi_form.html" %}
 
 {% else %}
-{%- include "slot_form.html" %}
 
-<p>スロット回収金誤差発生<br>
-島一覧を照会し箇所を特定してください。
+
+<h2>スロット回収金誤差発生</h2>
+<p>島一覧を照会し箇所を特定してください。
 </p>
 <table border class="table table-striped-columns">
 <tr align="right">
@@ -42,7 +42,7 @@
 </tr>
 </table>
 
-
+{%- include "slot_form.html" %}
 {% endif %}
 
 

@@ -2,8 +2,9 @@
 {%- block content %}
 
 {% if session["seisan_sum"] == 1000000 - session["seisan_all"] %}
-<p>
+<h1>
 精算機回収金一致
+</h1>
 <form action="/input_value" method="POST" enctype="multipart/form-data">
 ホールコン現金有高
 <input type="number" required name="hall_com" value={{session["hall_com"]}}>
@@ -15,8 +16,8 @@
 </p>
 
 {% else %}
-<p>精算回収金誤差発生<br>
-照会し誤差を特定してください。
+<h2>精算回収金誤差発生</h2>
+<p>照会し誤差を特定してください。
 </p>
 <table border class="table table-striped-columns">
     <tr>

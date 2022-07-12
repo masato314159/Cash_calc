@@ -2,7 +2,7 @@
 {%- block content %}
 
 {% if chk1 and chk2 %}
-<p>金庫残及びマージン一致</p>
+<h1>金庫残及びマージン一致</h1>
 <p>現金確認日報記入枚数・金額</p>
 
 金庫
@@ -114,18 +114,27 @@
         0
     </td>
     </tr>
+    <tr>
+        <td>合計</td>
+        <td>
+            
+        </td>
+        <td>
+            {{ session.margin_all }}
+        </td>
+        </tr>
     </table>
     
 
 {% elif not chk1 %}
 
-<p>金庫残誤差発生、再確認してください</p>
+<h2>金庫残誤差発生</h2>
 <p>現在の金庫総額:￥{{ session.safe_sum }}</p>
 {%- include "safe_margin_form.html" %}
 
 
 {% else %}
-<p>マージン誤差発生、再確認してください。</p>
+<h2>マージン誤差発生</h2>
 {%- include "safe_margin_form.html" %}
 
 {% endif %}

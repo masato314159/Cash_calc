@@ -114,7 +114,7 @@ def seisan_calc():
 
 @app.route("/input_value", methods=["POST"])
 def input_value():
-  d = {"1":1}
+  d = { 500:session["seisan_500"], 100:session["seisan_100"] }
   all_sum = 0
   sums = ["slot_all", "pachi_all", "seisan_sum"]
   for sum in sums:
@@ -124,8 +124,10 @@ def input_value():
   session["hall_com"] = hall_com
   if all_sum - set_money == hall_com:
     chk = True
-    money =  all_sum - set_money
-    bills = [10000,5000,1000,500,100]
+    sum500 = 500 * session["seisan_500"]
+    sum100 = 100 * session["seisan_100"]
+    money =  all_sum - ( set_money + sum500 + sum100 )
+    bills = [10000,5000,1000]
     for bill in bills:
       num_sheet = money // bill
       money %= bill
