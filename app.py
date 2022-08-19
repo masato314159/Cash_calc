@@ -7,7 +7,7 @@ app.secret_key = 'test'
 app.permanent_session_lifetime = timedelta(days=3)
 
 
-#そもそもクラスいるのか問題
+#そもそもクラスは必要なのか
 class Billcount:
   def __init__(self,
                bill_1k,
@@ -20,48 +20,58 @@ class Billcount:
     self.sum = bill_1k* 1000 + bill_10k * 10000 + bill_5k * 5000
 
 # 金庫総額・両替準備金
-total_safe = 1500000
-
+total_safe = 1200000
 # 営業セット金
 set_money = 1000000
-
 #上記二つの値は店舗ごとに違うのでコンフィグファイルかなんかつくって
 #ブラウザからいじれるように
 
+bills = [10000,5000,1000,500,100]
+
+
 @app.route("/",methods=["get"])
 def index():
-  return render_template ("index.html")
+  return render_template (
+    "index.html"
+    )
         
-@app.route("/slot_calc",methods=["POST"])
+@app.route("/slot_calc",methods=["POST","GET"])
 def calc():
-  slot_safeNums = ["sa", "sb"]
-  bill_types = ["_1k","_10k","_5k" ]
-  
-  for slot_safeNum in slot_safeNums:
-    bill_1k = int(request.form[slot_safeNum + "_1k"])
-    bill_10k = int(request.form[slot_safeNum + "_10k"])
-    bill_5k  = int(request.form[slot_safeNum + "_5k"])
-    globals()[slot_safeNum] = Billcount(bill_1k, bill_10k, bill_5k)
+  if request.method == "POST":
+    slot_safeNums = ["sa", "sb"]
+    bill_types = ["_1k","_10k","_5k" ]
     
-    session[slot_safeNum + "_1k"] = bill_1k
-    session[slot_safeNum + "_10k"] = bill_10k
-    session[slot_safeNum + "_5k"] = bill_5k
+    for slot_safeNum in slot_safeNums:
+      bill_1k = int(request.form[slot_safeNum + "_1k"])
+      bill_10k = int(request.form[slot_safeNum + "_10k"])
+      bill_5k  = int(request.form[slot_safeNum + "_5k"])
+      globals()[slot_safeNum] = Billcount(bill_1k, bill_10k, bill_5k)
+      
+      session[slot_safeNum + "_1k"] = bill_1k
+      session[slot_safeNum + "_10k"] = bill_10k
+      session[slot_safeNum + "_5k"] = bill_5k
+      
+    slot_all = int(request.form["slot_all"])
+    session["slot_all"] = slot_all
     
-  slot_all = int(request.form["slot_all"])
-  session["slot_all"] = slot_all
+    slot_sum = 0
+    
+    slot_sumNums = [sa.sum, sb.sum]
+    for slot_sumNum in slot_sumNums:
+      slot_sum += slot_sumNum
+    return render_template ("slot_calc.html",
+                            slot_all = slot_all,
+                            slot_sum = slot_sum,
+                            form_data = session,
+                            sa = sa,
+                            sb = sb
+                            )
   
-  slot_sum = 0
-  
-  slot_sumNums = [sa.sum, sb.sum]
-  for slot_sumNum in slot_sumNums:
-    slot_sum += slot_sumNum
-  return render_template ("slot_calc.html",
-                          slot_all = slot_all,
-                          slot_sum = slot_sum,
-                          form_data = session,
-                          sa = sa,
-                          sb = sb
-                          ) 
+  else:
+    if "slot_all" in session:
+      return render_template ("slot_calc.html")
+    else:
+      return redirect("/")
 
 @app.route("/pachi_calc",methods=["POST"])   
 def pachi_calc():
@@ -85,15 +95,16 @@ def pachi_calc():
   for pachi_sumNum in pachi_sumNums:
     pachi_sum += pachi_sumNum
     
-  return render_template ("pachi_calc.html",
-                          pachi_sum = pachi_sum,
-                          pachi_all = pachi_all,
-                          form_data = session,
-                          p1 = p1, p2 = p2, p3 = p3,
-                          p4 = p4, p5 = p5, p6 = p6,
-                          p7 = p7, p8 = p8, p9 = p9,
-                          p10 = p10
-                          ) 
+  return render_template (
+    "pachi_calc.html",
+    pachi_sum = pachi_sum,
+    pachi_all = pachi_all,
+    form_data = session,
+    p1 = p1, p2 = p2, p3 = p3,
+    p4 = p4, p5 = p5, p6 = p6,
+    p7 = p7, p8 = p8, p9 = p9,
+    p10 = p10
+    ) 
 
 
 @app.route("/seisan_calc",methods=["POST"])
@@ -172,7 +183,7 @@ def safe_margin_calc():
   margin_list = ["margin_10k", "margin_1k", "margin_100"]
   
   
-  bills = [10000,5000,1000,500,100]
+  
   margin_bills = [10000, 1000, 100]
   safe_sum = 0
   margin_all = 0
@@ -198,6 +209,19 @@ def clear():
   return redirect("/")
   
 # sessionクリアボタン　session無限
+
+@app.route('/safe_calc', methods = ['post'])
+def sefe_calc():
+  safe_list = [
+    "safe_10k", "safe_5k", "safe_1k",
+    "safe_500", "safe_100"
+  ]
+  for i in range(len(safe_list)):
+      session[safe_list[i]] = int(request.form[safe_list[i]])
+  pass
+  
+
+# @app.route('/config', methods = ['get'])
 
  
 if __name__ == '__main__':
