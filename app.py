@@ -35,7 +35,7 @@ def index():
     "index.html"
     )
         
-@app.route("/slot_calc",methods=["POST","GET"])
+@app.route("/slot_calc",methods=["POST"])
 def calc():
   if request.method == "POST":
     slot_safeNums = ["sa", "sb"]
