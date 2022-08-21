@@ -7,6 +7,10 @@ h2 {
     color:rgb(255, 52, 52);
     text-align: center;
 }
+h3 {
+    color:orange;
+    text-align: center;
+}
 
 .wrap {
     overflow: hidden; 
@@ -18,16 +22,4 @@ input.aaa{
 input.bbb{
     width:50%;
 }
-thead th {
-    /* 縦スクロール時に固定する */
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    /* tbody内のセルより手前に表示する */
-    z-index: 1;
-    /* opacity: 1; */
-  }
-  table{
-    /* width:90%; */
 
-  }

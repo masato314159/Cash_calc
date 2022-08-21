@@ -1,9 +1,14 @@
 {%- extends "base.html" %}
 {%- block content %}
 
-{% if pachi_sum == pachi_all %}
+{% if session.pachi_chk == 1 %}
 
 <h1>パチンコ回収金一致</h1>
+{% if session.pachi_error %}
+<h3>パチンコ誤差金:￥{{ session.pachi_error }}</h3>
+{% else %}
+{% endif %}
+
 <p>精算機回収金を入力してください。
 </p>
 {%- include "seisan_form.html" %}

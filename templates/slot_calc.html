@@ -5,9 +5,13 @@
 
 
 
-{% if slot_all == slot_sum %}
+{% if session.slot_chk == 1 %}
 
 <h1>スロット回収金一致</h1>
+{% if session.slot_error %}
+<h3>スロット誤差金:￥{{ session.slot_error }}</h3>
+{% else %}
+{% endif %}
 <p>パチンコ回収金を入力してください。
 </p>
 {%- include "pachi_form.html" %}

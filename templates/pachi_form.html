@@ -70,8 +70,21 @@
 <td> <input type="number" class="aaa" required name="p10_5k" value={{session["p10_5k"]}}></td>
 </tr>
 </table>
+<p>
+    誤差
+    <input type="number" required name="pachi_error"
+    
+    {% if session.pachi_error %}
+    value = {{session.pachi_error}}>
+    
+    {% else %}
+    value=0 >
+    
+    {% endif %}
+</p>
+
 合計金額  
-    <input type="number" class="aaa" required name="pachi_all" value={{session["pachi_all"]}}>
+    <input type="number" required name="pachi_all" value= {{ session["pachi_all"] }} >
 
     <input type="submit" class="btn btn-primary" value="送信" >
 

@@ -35,6 +35,7 @@ def index():
     "index.html"
     )
         
+# @app.route("/slot_calc",methods=["POST", "GET"])
 @app.route("/slot_calc",methods=["POST"])
 def calc():
   if request.method == "POST":
@@ -46,6 +47,8 @@ def calc():
       bill_10k = int(request.form[slot_safeNum + "_10k"])
       bill_5k  = int(request.form[slot_safeNum + "_5k"])
       globals()[slot_safeNum] = Billcount(bill_1k, bill_10k, bill_5k)
+            
+      session["slot_error"] = int(request.form["slot_error"])
       
       session[slot_safeNum + "_1k"] = bill_1k
       session[slot_safeNum + "_10k"] = bill_10k
@@ -59,6 +62,12 @@ def calc():
     slot_sumNums = [sa.sum, sb.sum]
     for slot_sumNum in slot_sumNums:
       slot_sum += slot_sumNum
+      
+    if slot_all == slot_sum - session["slot_error"]:
+      session["slot_chk"] = 1
+    else:
+      session["slot_chk"] = 2
+    
     return render_template ("slot_calc.html",
                             slot_all = slot_all,
                             slot_sum = slot_sum,
@@ -68,10 +77,13 @@ def calc():
                             )
   
   else:
-    if "slot_all" in session:
+    if "slot_chk" in session:
       return render_template ("slot_calc.html")
     else:
       return redirect("/")
+    
+    # https://qiita.com/furi/items/a32c106e9d7c4418fc9d
+    
 
 @app.route("/pachi_calc",methods=["POST"])   
 def pachi_calc():
@@ -88,17 +100,22 @@ def pachi_calc():
   pachi_all = int(request.form["pachi_all"])
   session["pachi_all"] = pachi_all
   
+  session["pachi_error"] = int(request.form["pachi_error"])
+  
   pachi_sum = 0
   pachi_sumNums = [p1.sum, p2.sum, p3.sum, p4.sum, p5.sum,
                    p6.sum, p7.sum, p8.sum, p9.sum, p10.sum
                    ]
   for pachi_sumNum in pachi_sumNums:
     pachi_sum += pachi_sumNum
+  
+  if pachi_all == pachi_sum - session["pachi_error"]:
+    session["pachi_chk"] = 1
+  else:
+    session["pachi_chk"] = 2
     
   return render_template (
     "pachi_calc.html",
-    pachi_sum = pachi_sum,
-    pachi_all = pachi_all,
     form_data = session,
     p1 = p1, p2 = p2, p3 = p3,
     p4 = p4, p5 = p5, p6 = p6,
